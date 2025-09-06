@@ -1,0 +1,1006 @@
+{
+	"info": {
+		"_postman_id": "e205b765-d72c-4d1d-b8a9-5d4cad6be248",
+		"name": "PSI Mammoliti Backend API",
+		"description": "API for managing psychologists, specializations, time slots, and bookings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1345227"
+	},
+	"item": [
+		{
+			"name": "Psychologists",
+			"item": [
+				{
+					"name": "Get All Psychologists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/psychologists",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"psychologists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Psychologist by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/psychologists/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"psychologists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Psychologist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"dr.smith@example.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"+1234567890\",\n  \"licenseNumber\": \"PSY123456\",\n  \"isActive\": true,\n  \"specializationIds\": [1, 2]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/psychologists",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"psychologists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Psychologist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"+1234567890\",\n  \"specializationIds\": [1, 2, 3]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/psychologists/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"psychologists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Psychologist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/psychologists/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"psychologists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Manage psychologists and their specializations"
+		},
+		{
+			"name": "Specializations",
+			"item": [
+				{
+					"name": "Get All Specializations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/specializations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"specializations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specialization by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/specializations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"specializations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Specialization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Cognitive Behavioral Therapy\",\n  \"description\": \"CBT for anxiety and depression\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/specializations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"specializations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Specialization",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Cognitive Behavioral Therapy\",\n  \"description\": \"CBT for anxiety, depression, and trauma\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/specializations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"specializations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specialization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/specializations/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"specializations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Manage therapy specializations"
+		},
+		{
+			"name": "Time Slots",
+			"item": [
+				{
+					"name": "Get All Time Slots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Slot by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Slots by Psychologist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/psychologist/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"psychologist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Time Slots by Psychologist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/psychologist/1/available",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"psychologist",
+								"1",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Future Time Slots by Psychologist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/psychologist/1/available/future",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"psychologist",
+								"1",
+								"available",
+								"future"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Future Time Slots by Specialization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/available/specialization/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"available",
+								"specialization",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Slots by Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/date-range?startDate=2024-01-15&endDate=2024-01-20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-15"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Slots by Psychologist and Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/psychologist/1/date-range?startDate=2024-01-15&endDate=2024-01-20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"psychologist",
+								"1",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-15"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Time Slot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"2024-01-15T09:00:00Z\",\n  \"endTime\": \"2024-01-15T10:00:00Z\",\n  \"isAvailable\": true,\n  \"notes\": \"Morning consultation slot\",\n  \"psychologistId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/time-slots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Time Slot",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startTime\": \"2024-01-15T09:30:00Z\",\n  \"endTime\": \"2024-01-15T10:30:00Z\",\n  \"notes\": \"Updated morning consultation slot\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Time Slot as Unavailable",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/1/unavailable",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"1",
+								"unavailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Time Slot as Available",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/1/available",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"1",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Time Slot",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/time-slots/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"time-slots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Manage available time slots for appointments"
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Get All Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking by Time Slot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/time-slot/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"time-slot",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bookings by Client Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/client/john.doe@example.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"client",
+								"john.doe@example.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bookings by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/status/pending",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"status",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientName\": \"John Doe\",\n  \"clientEmail\": \"john.doe@example.com\",\n  \"clientPhone\": \"+1234567890\",\n  \"notes\": \"First consultation\",\n  \"timeSlotId\": 1,\n  \"specializationId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientName\": \"John Doe\",\n  \"clientPhone\": \"+1234567890\",\n  \"notes\": \"Updated consultation notes\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"confirmed\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bookings/1/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/1/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"1",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bookings/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Manage client bookings and appointments"
+		},
+		{
+			"name": "Sample Data Setup",
+			"item": [
+				{
+					"name": "1. Create Specializations",
+					"item": [
+						{
+							"name": "Create CBT Specialization",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Cognitive Behavioral Therapy\",\n  \"description\": \"CBT for anxiety and depression\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/specializations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"specializations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Family Therapy Specialization",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Family Therapy\",\n  \"description\": \"Family and couples counseling\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/specializations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"specializations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "2. Create Psychologists",
+					"item": [
+						{
+							"name": "Create Dr. Smith",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"dr.smith@example.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"+1234567890\",\n  \"licenseNumber\": \"PSY123456\",\n  \"isActive\": true,\n  \"specializationIds\": [1, 2]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/psychologists",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"psychologists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dr. Jones",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"dr.jones@example.com\",\n  \"firstName\": \"Sarah\",\n  \"lastName\": \"Jones\",\n  \"phone\": \"+1987654321\",\n  \"licenseNumber\": \"PSY789012\",\n  \"isActive\": true,\n  \"specializationIds\": [1]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/psychologists",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"psychologists"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "3. Create Time Slots",
+					"item": [
+						{
+							"name": "Create Morning Slot for Dr. Smith",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"startTime\": \"2024-01-15T09:00:00Z\",\n  \"endTime\": \"2024-01-15T10:00:00Z\",\n  \"isAvailable\": true,\n  \"notes\": \"Morning consultation slot\",\n  \"psychologistId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/time-slots",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"time-slots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Afternoon Slot for Dr. Smith",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"startTime\": \"2024-01-15T14:00:00Z\",\n  \"endTime\": \"2024-01-15T15:00:00Z\",\n  \"isAvailable\": true,\n  \"notes\": \"Afternoon consultation slot\",\n  \"psychologistId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/time-slots",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"time-slots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Slot for Dr. Jones",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"startTime\": \"2024-01-16T10:00:00Z\",\n  \"endTime\": \"2024-01-16T11:00:00Z\",\n  \"isAvailable\": true,\n  \"notes\": \"CBT consultation slot\",\n  \"psychologistId\": 2\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/time-slots",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"time-slots"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "4. Create Bookings",
+					"item": [
+						{
+							"name": "Create Booking with Dr. Smith",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"clientName\": \"John Doe\",\n  \"clientEmail\": \"john.doe@example.com\",\n  \"clientPhone\": \"+1234567890\",\n  \"notes\": \"First consultation\",\n  \"timeSlotId\": 1,\n  \"specializationId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Booking with Dr. Jones",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"clientName\": \"Jane Smith\",\n  \"clientEmail\": \"jane.smith@example.com\",\n  \"clientPhone\": \"+1987654321\",\n  \"notes\": \"CBT therapy session\",\n  \"timeSlotId\": 3,\n  \"specializationId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bookings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bookings"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Create sample data for testing"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
