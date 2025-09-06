@@ -12,7 +12,7 @@ import {
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { TimeSlotService } from '@/services/timeslot.service';
 import { TimeSlot } from '@/entities/timeslot.entity';
-import { CreateTimeSlotDto, UpdateTimeSlotDto } from '@/dto/timeslot.dto';
+import { CreateTimeSlotDto, UpdateTimeSlotDto, TimeSlotQueryDto, TimeSlotAvailableFutureQueryDto } from '@/dto/timeslot.dto';
 
 @ApiTags('time-slots')
 @Controller('time-slots')
@@ -20,73 +20,42 @@ export class TimeSlotController {
   constructor(private readonly timeSlotService: TimeSlotService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get all time slots' })
-  @ApiResponse({ status: 200, description: 'List of all time slots', type: [TimeSlot] })
-  async findAll(): Promise<TimeSlot[]> {
-    return this.timeSlotService.findAll();
+  @ApiOperation({ 
+    summary: 'Get time slots with comprehensive filtering',
+    description: 'Retrieve time slots with flexible filtering options. By default, only available timeslots are returned. All query parameters are optional and can be combined.'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'List of time slots matching the specified filters (defaults to available only)', 
+    type: [TimeSlot] 
+  })
+  async findAll(@Query() query: TimeSlotQueryDto): Promise<TimeSlot[]> {
+    return this.timeSlotService.findWithFilters(query);
+  }
+
+  @Get('bookable')
+  @ApiOperation({ 
+    summary: 'Get bookable time slots',
+    description: 'Retrieve only available time slots that are in the future and can be booked. This endpoint is optimized for booking scenarios and returns timeslots that are both available and in the future. Equivalent to GET /time-slots?isAvailable=true&futureOnly=true'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'List of bookable time slots matching the specified filters', 
+    type: [TimeSlot] 
+  })
+  async findBookable(@Query() query: TimeSlotAvailableFutureQueryDto): Promise<TimeSlot[]> {
+    return this.timeSlotService.findAvailableFuture(query);
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a specific time slot by ID' })
+  @ApiParam({ name: 'id', description: 'Time slot ID' })
+  @ApiResponse({ status: 200, description: 'Time slot details', type: TimeSlot })
+  @ApiResponse({ status: 404, description: 'Time slot not found' })
   async findOne(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<TimeSlot | null> {
     return this.timeSlotService.findOne(id);
-  }
-
-  @Get('psychologist/:psychologistId')
-  async findByPsychologist(
-    @Param('psychologistId', ParseIntPipe) psychologistId: number,
-  ): Promise<TimeSlot[]> {
-    return this.timeSlotService.findByPsychologist(psychologistId);
-  }
-
-  @Get('psychologist/:psychologistId/available')
-  async findAvailableByPsychologist(
-    @Param('psychologistId', ParseIntPipe) psychologistId: number,
-  ): Promise<TimeSlot[]> {
-    return this.timeSlotService.findAvailableByPsychologist(psychologistId);
-  }
-
-  @Get('psychologist/:psychologistId/available/future')
-  async findAvailableFutureByPsychologist(
-    @Param('psychologistId', ParseIntPipe) psychologistId: number,
-  ): Promise<TimeSlot[]> {
-    return this.timeSlotService.findAvailableFutureByPsychologist(psychologistId);
-  }
-
-  @Get('available/specialization/:specializationId')
-  @ApiOperation({ summary: 'Get available future time slots by specialization' })
-  @ApiParam({ name: 'specializationId', description: 'Specialization ID' })
-  @ApiResponse({ status: 200, description: 'List of available future time slots for psychologists with the specified specialization', type: [TimeSlot] })
-  async findAvailableFutureBySpecialization(
-    @Param('specializationId', ParseIntPipe) specializationId: number,
-  ): Promise<TimeSlot[]> {
-    return this.timeSlotService.findAvailableFutureBySpecialization(specializationId);
-  }
-
-  @Get('date-range')
-  async findByDateRange(
-    @Query('startDate') startDate: string,
-    @Query('endDate') endDate: string,
-  ): Promise<TimeSlot[]> {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return this.timeSlotService.findByDateRange(start, end);
-  }
-
-  @Get('psychologist/:psychologistId/date-range')
-  async findByPsychologistAndDateRange(
-    @Param('psychologistId', ParseIntPipe) psychologistId: number,
-    @Query('startDate') startDate: string,
-    @Query('endDate') endDate: string,
-  ): Promise<TimeSlot[]> {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return this.timeSlotService.findByPsychologistAndDateRange(
-      psychologistId,
-      start,
-      end,
-    );
   }
 
   @Post()

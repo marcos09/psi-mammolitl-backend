@@ -20,6 +20,10 @@ export class Booking extends BaseEntity {
   @Column({ default: 'pending' })
   status: string; // pending, confirmed, cancelled, completed
 
+  // Client address for home visits
+  @Column({ nullable: true })
+  clientAddress: string;
+
   @OneToOne(() => TimeSlot, timeSlot => timeSlot.booking, { eager: true })
   @JoinColumn({ name: 'timeSlotId' })
   timeSlot: TimeSlot;

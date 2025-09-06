@@ -4,6 +4,31 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
   name = 'InitialDataSetup1704067200000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    // Create appointment_types table first
+    await queryRunner.query(`
+      CREATE TABLE "appointment_types" (
+        "id" SERIAL NOT NULL,
+        "name" character varying NOT NULL,
+        "code" character varying NOT NULL,
+        "description" character varying,
+        "isActive" boolean NOT NULL DEFAULT true,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "deletedAt" TIMESTAMP,
+        CONSTRAINT "UQ_appointment_types_name" UNIQUE ("name"),
+        CONSTRAINT "UQ_appointment_types_code" UNIQUE ("code"),
+        CONSTRAINT "PK_appointment_types" PRIMARY KEY ("id")
+      )
+    `);
+
+    // Insert appointment types
+    await queryRunner.query(`
+      INSERT INTO appointment_types (name, code, description, "isActive", "createdAt", "updatedAt") VALUES
+      ('Online Consultation', 'online', 'Virtual consultation via video call', true, NOW(), NOW()),
+      ('On-Site Consultation', 'on_site', 'In-person consultation at office/clinic', true, NOW(), NOW()),
+      ('At-Home Consultation', 'at_home', 'Home visit consultation at client location', true, NOW(), NOW())
+    `);
+
     // Insert Specializations
     await queryRunner.query(`
       INSERT INTO specializations (name, description, "createdAt", "updatedAt") VALUES
@@ -66,16 +91,22 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
           const slotEnd = new Date(currentDate);
           slotEnd.setHours(hour + 1, 0, 0, 0);
 
+          // Default to online appointment type (will be updated in later migration)
+          const appointmentTypeId = 1; // Online consultation
+          const meetingLink = `https://meet.google.com/psi-session-${psychologistId}-${day}-${hour}`;
+
           await queryRunner.query(
             `
-            INSERT INTO time_slots ("startTime", "endTime", "isAvailable", notes, "psychologistId", "createdAt", "updatedAt") VALUES
-            ($1, $2, true, $3, $4, NOW(), NOW())
+            INSERT INTO time_slots ("startTime", "endTime", "isAvailable", notes, "psychologistId", "appointmentTypeId", "meetingLink", "createdAt", "updatedAt") VALUES
+            ($1, $2, true, $3, $4, $5, $6, NOW(), NOW())
           `,
             [
               slotStart.toISOString(),
               slotEnd.toISOString(),
               `${hour}:00 - ${hour + 1}:00 consultation slot`,
               psychologistId,
+              appointmentTypeId,
+              meetingLink,
             ],
           );
         }
@@ -91,6 +122,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+1111111111',
         specializationId: 1,
         notes: 'First CBT session',
+        clientAddress: null, // Online session
       },
       {
         timeSlotId: 2,
@@ -99,6 +131,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+2222222222',
         specializationId: 2,
         notes: 'Family therapy consultation',
+        clientAddress: '123 Main St, City, State 12345', // On-site session
       },
       {
         timeSlotId: 5,
@@ -107,6 +140,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+3333333333',
         specializationId: 3,
         notes: 'Child psychology assessment',
+        clientAddress: '456 Oak Ave, City, State 12345', // At-home session
       },
       {
         timeSlotId: 8,
@@ -115,6 +149,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+4444444444',
         specializationId: 1,
         notes: 'CBT follow-up session',
+        clientAddress: null, // Online session
       },
       {
         timeSlotId: 12,
@@ -123,6 +158,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+5555555555',
         specializationId: 4,
         notes: 'Addiction counseling initial consultation',
+        clientAddress: '789 Pine St, City, State 12345', // At-home session
       },
       {
         timeSlotId: 15,
@@ -131,6 +167,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+6666666666',
         specializationId: 5,
         notes: 'Trauma therapy session',
+        clientAddress: null, // Online session
       },
       {
         timeSlotId: 18,
@@ -139,6 +176,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+7777777777',
         specializationId: 2,
         notes: 'Couples therapy session',
+        clientAddress: '321 Elm St, City, State 12345', // On-site session
       },
       {
         timeSlotId: 22,
@@ -147,6 +185,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+8888888888',
         specializationId: 3,
         notes: 'Adolescent therapy session',
+        clientAddress: null, // Online session
       },
       {
         timeSlotId: 25,
@@ -155,6 +194,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+9999999999',
         specializationId: 1,
         notes: 'CBT anxiety treatment',
+        clientAddress: '654 Maple Dr, City, State 12345', // At-home session
       },
       {
         timeSlotId: 28,
@@ -163,6 +203,7 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
         clientPhone: '+1010101010',
         specializationId: 4,
         notes: 'Substance abuse counseling',
+        clientAddress: null, // Online session
       },
     ];
 
@@ -178,14 +219,15 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
       // Create booking
       await queryRunner.query(
         `
-        INSERT INTO bookings ("clientName", "clientEmail", "clientPhone", notes, status, "timeSlotId", "specializationId", "createdAt", "updatedAt") VALUES
-        ($1, $2, $3, $4, 'confirmed', $5, $6, NOW(), NOW())
+        INSERT INTO bookings ("clientName", "clientEmail", "clientPhone", notes, status, "clientAddress", "timeSlotId", "specializationId", "createdAt", "updatedAt") VALUES
+        ($1, $2, $3, $4, 'confirmed', $5, $6, $7, NOW(), NOW())
       `,
         [
           booking.clientName,
           booking.clientEmail,
           booking.clientPhone,
           booking.notes,
+          booking.clientAddress || null,
           booking.timeSlotId,
           booking.specializationId,
         ],
@@ -208,5 +250,11 @@ export class InitialDataSetup1704067200000 implements MigrationInterface {
 
     // Remove specializations
     await queryRunner.query(`DELETE FROM specializations`);
+
+    // Remove appointment types
+    await queryRunner.query(`DELETE FROM appointment_types`);
+
+    // Drop appointment_types table
+    await queryRunner.query(`DROP TABLE "appointment_types"`);
   }
 }

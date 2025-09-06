@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TimeSlot } from '@/entities/timeslot.entity';
+import { AppointmentType } from '@/entities/appointment-type.entity';
 import { TimeSlotService } from '@/services/timeslot.service';
 import { TimeSlotController } from '@/controllers/timeslot.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TimeSlot])],
+  imports: [TypeOrmModule.forFeature([TimeSlot, AppointmentType])],
   controllers: [TimeSlotController],
   providers: [TimeSlotService],
   exports: [TimeSlotService],

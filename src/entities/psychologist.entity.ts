@@ -1,6 +1,7 @@
 import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from '@/entities/base.entity';
 import { Specialization } from '@/entities/specialization.entity';
+import { AppointmentType } from '@/entities/appointment-type.entity';
 
 @Entity('psychologists')
 export class Psychologist extends BaseEntity {
@@ -29,4 +30,15 @@ export class Psychologist extends BaseEntity {
     inverseJoinColumn: { name: 'specializationId', referencedColumnName: 'id' },
   })
   specializations: Specialization[];
+
+  @ManyToMany(() => AppointmentType, { eager: true })
+  @JoinTable({
+    name: 'psychologist_appointment_types',
+    joinColumn: { name: 'psychologistId', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'appointmentTypeId',
+      referencedColumnName: 'id',
+    },
+  })
+  appointmentTypes: AppointmentType[];
 }

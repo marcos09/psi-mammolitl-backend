@@ -1,0 +1,608 @@
+{
+  "info": {
+    "name": "PSI Mammoliti - Time Slots API",
+    "description": "Comprehensive API collection for Time Slots management with appointment type filtering",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Time Slots - Basic Operations",
+      "item": [
+        {
+          "name": "Get All Time Slots (Available Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"]
+            },
+            "description": "Get all time slots with default filtering (available only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Time Slots (Including Unavailable)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?isAvailable=false",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "isAvailable",
+                  "value": "false",
+                  "description": "Include unavailable timeslots"
+                }
+              ]
+            },
+            "description": "Get all time slots including unavailable ones"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Time Slot by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "1"]
+            },
+            "description": "Get a specific time slot by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Time Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startTime\": \"2024-02-15T09:00:00Z\",\n  \"endTime\": \"2024-02-15T10:00:00Z\",\n  \"isAvailable\": true,\n  \"notes\": \"Morning consultation slot\",\n  \"psychologistId\": 1,\n  \"appointmentTypeId\": 1,\n  \"meetingLink\": \"https://meet.google.com/abc-defg-hij\",\n  \"address\": null\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/time-slots",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"]
+            },
+            "description": "Create a new time slot"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Time Slot",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startTime\": \"2024-02-15T09:30:00Z\",\n  \"endTime\": \"2024-02-15T10:30:00Z\",\n  \"notes\": \"Updated consultation slot\",\n  \"meetingLink\": \"https://meet.google.com/updated-link\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/time-slots/1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "1"]
+            },
+            "description": "Update an existing time slot"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Time Slot as Unavailable",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/1/unavailable",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "1", "unavailable"]
+            },
+            "description": "Mark a time slot as unavailable"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Time Slot as Available",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/1/available",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "1", "available"]
+            },
+            "description": "Mark a time slot as available"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Time Slot",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "1"]
+            },
+            "description": "Delete a time slot"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time Slots - Filtering & Queries",
+      "item": [
+        {
+          "name": "Get Bookable Time Slots",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"]
+            },
+            "description": "Get all bookable time slots (available + future)"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Psychologist",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?psychologistId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                }
+              ]
+            },
+            "description": "Get time slots for a specific psychologist"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Specialization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?specializationId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "specializationId",
+                  "value": "1",
+                  "description": "Filter by specialization ID"
+                }
+              ]
+            },
+            "description": "Get time slots for a specific specialization"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Appointment Type - Online",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?appointmentTypeId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "appointmentTypeId",
+                  "value": "1",
+                  "description": "Filter by appointment type (1=Online, 2=On-Site, 3=At-Home)"
+                }
+              ]
+            },
+            "description": "Get online appointment time slots"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Appointment Type - On-Site",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?appointmentTypeId=2",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "appointmentTypeId",
+                  "value": "2",
+                  "description": "Filter by appointment type (1=Online, 2=On-Site, 3=At-Home)"
+                }
+              ]
+            },
+            "description": "Get on-site appointment time slots"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Appointment Type - At-Home",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?appointmentTypeId=3",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "appointmentTypeId",
+                  "value": "3",
+                  "description": "Filter by appointment type (1=Online, 2=On-Site, 3=At-Home)"
+                }
+              ]
+            },
+            "description": "Get at-home appointment time slots"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Future Only",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?futureOnly=true",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "futureOnly",
+                  "value": "true",
+                  "description": "Show only future time slots"
+                }
+              ]
+            },
+            "description": "Get only future time slots"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?startDate=2024-01-15T00:00:00Z&endDate=2024-01-31T23:59:59Z",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-15T00:00:00Z",
+                  "description": "Filter from this date"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31T23:59:59Z",
+                  "description": "Filter until this date"
+                }
+              ]
+            },
+            "description": "Get time slots within a date range"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time Slots - Combined Filters",
+      "item": [
+        {
+          "name": "Psychologist + Appointment Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?psychologistId=1&appointmentTypeId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                },
+                {
+                  "key": "appointmentTypeId",
+                  "value": "1",
+                  "description": "Filter by appointment type"
+                }
+              ]
+            },
+            "description": "Get time slots for specific psychologist and appointment type"
+          },
+          "response": []
+        },
+        {
+          "name": "Specialization + Appointment Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?specializationId=1&appointmentTypeId=2",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "specializationId",
+                  "value": "1",
+                  "description": "Filter by specialization ID"
+                },
+                {
+                  "key": "appointmentTypeId",
+                  "value": "2",
+                  "description": "Filter by appointment type"
+                }
+              ]
+            },
+            "description": "Get time slots for specific specialization and appointment type"
+          },
+          "response": []
+        },
+        {
+          "name": "Psychologist + Future + Available",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?psychologistId=1&futureOnly=true&isAvailable=true",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                },
+                {
+                  "key": "futureOnly",
+                  "value": "true",
+                  "description": "Show only future time slots"
+                },
+                {
+                  "key": "isAvailable",
+                  "value": "true",
+                  "description": "Show only available time slots"
+                }
+              ]
+            },
+            "description": "Get available future time slots for specific psychologist"
+          },
+          "response": []
+        },
+        {
+          "name": "Complex Filter - All Parameters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots?psychologistId=1&specializationId=1&appointmentTypeId=1&futureOnly=true&startDate=2024-01-15T00:00:00Z&endDate=2024-01-31T23:59:59Z",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                },
+                {
+                  "key": "specializationId",
+                  "value": "1",
+                  "description": "Filter by specialization ID"
+                },
+                {
+                  "key": "appointmentTypeId",
+                  "value": "1",
+                  "description": "Filter by appointment type"
+                },
+                {
+                  "key": "futureOnly",
+                  "value": "true",
+                  "description": "Show only future time slots"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2024-01-15T00:00:00Z",
+                  "description": "Filter from this date"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31T23:59:59Z",
+                  "description": "Filter until this date"
+                }
+              ]
+            },
+            "description": "Complex filter with all parameters"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time Slots - Bookable Endpoint Filters",
+      "item": [
+        {
+          "name": "Bookable - All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"]
+            },
+            "description": "Get all bookable time slots"
+          },
+          "response": []
+        },
+        {
+          "name": "Bookable - By Psychologist",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable?psychologistId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                }
+              ]
+            },
+            "description": "Get bookable time slots for specific psychologist"
+          },
+          "response": []
+        },
+        {
+          "name": "Bookable - By Specialization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable?specializationId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"],
+              "query": [
+                {
+                  "key": "specializationId",
+                  "value": "1",
+                  "description": "Filter by specialization ID"
+                }
+              ]
+            },
+            "description": "Get bookable time slots for specific specialization"
+          },
+          "response": []
+        },
+        {
+          "name": "Bookable - By Appointment Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable?appointmentTypeId=1",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"],
+              "query": [
+                {
+                  "key": "appointmentTypeId",
+                  "value": "1",
+                  "description": "Filter by appointment type"
+                }
+              ]
+            },
+            "description": "Get bookable time slots for specific appointment type"
+          },
+          "response": []
+        },
+        {
+          "name": "Bookable - By Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable?startDate=2024-01-15T00:00:00Z&endDate=2024-01-31T23:59:59Z",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-15T00:00:00Z",
+                  "description": "Filter from this date"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31T23:59:59Z",
+                  "description": "Filter until this date"
+                }
+              ]
+            },
+            "description": "Get bookable time slots within date range"
+          },
+          "response": []
+        },
+        {
+          "name": "Bookable - Complex Filter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/time-slots/bookable?psychologistId=1&appointmentTypeId=1&startDate=2024-01-15T00:00:00Z&endDate=2024-01-31T23:59:59Z",
+              "host": ["{{base_url}}"],
+              "path": ["time-slots", "bookable"],
+              "query": [
+                {
+                  "key": "psychologistId",
+                  "value": "1",
+                  "description": "Filter by psychologist ID"
+                },
+                {
+                  "key": "appointmentTypeId",
+                  "value": "1",
+                  "description": "Filter by appointment type"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2024-01-15T00:00:00Z",
+                  "description": "Filter from this date"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31T23:59:59Z",
+                  "description": "Filter until this date"
+                }
+              ]
+            },
+            "description": "Get bookable time slots with complex filtering"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "description": "Base URL for the API"
+    }
+  ]
+}

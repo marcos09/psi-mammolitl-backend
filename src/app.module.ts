@@ -7,6 +7,7 @@ import { PsychologistModule } from '@/modules/psychologist.module';
 import { SpecializationModule } from '@/modules/specialization.module';
 import { TimeSlotModule } from '@/modules/timeslot.module';
 import { BookingModule } from '@/modules/booking.module';
+import { AppointmentTypeModule } from './modules/appointment-type.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { BookingModule } from '@/modules/booking.module';
     SpecializationModule,
     TimeSlotModule,
     BookingModule,
+    AppointmentTypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

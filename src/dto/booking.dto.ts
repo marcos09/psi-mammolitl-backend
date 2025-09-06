@@ -6,16 +6,25 @@ export class CreateBookingDto {
   @IsString()
   clientName: string;
 
-  @ApiProperty({ example: 'john.doe@example.com', description: 'Client email address' })
+  @ApiProperty({
+    example: 'john.doe@example.com',
+    description: 'Client email address',
+  })
   @IsEmail()
   clientEmail: string;
 
-  @ApiPropertyOptional({ example: '+1234567890', description: 'Client phone number' })
+  @ApiPropertyOptional({
+    example: '+1234567890',
+    description: 'Client phone number',
+  })
   @IsOptional()
   @IsString()
   clientPhone?: string;
 
-  @ApiPropertyOptional({ example: 'First consultation', description: 'Optional booking notes' })
+  @ApiPropertyOptional({
+    example: 'First consultation',
+    description: 'Optional booking notes',
+  })
   @IsOptional()
   @IsString()
   notes?: string;
@@ -24,9 +33,28 @@ export class CreateBookingDto {
   @IsNumber()
   timeSlotId: number;
 
-  @ApiProperty({ example: 2, description: 'ID of the specialization for this booking' })
+  @ApiProperty({
+    example: 2,
+    description: 'ID of the specialization for this booking',
+  })
   @IsNumber()
   specializationId: number;
+
+  @ApiProperty({
+    example: 1,
+    description: 'ID of the appointment type for this booking',
+  })
+  @IsNumber()
+  appointmentTypeId: number;
+
+  @ApiPropertyOptional({
+    example: '456 Client St, Client City, State 54321',
+    description:
+      'Client address for home visits (required for at_home appointment type)',
+  })
+  @IsOptional()
+  @IsString()
+  clientAddress?: string;
 }
 
 export class UpdateBookingDto {
@@ -35,37 +63,68 @@ export class UpdateBookingDto {
   @IsString()
   clientName?: string;
 
-  @ApiPropertyOptional({ example: 'john.doe@example.com', description: 'Client email address' })
+  @ApiPropertyOptional({
+    example: 'john.doe@example.com',
+    description: 'Client email address',
+  })
   @IsOptional()
   @IsEmail()
   clientEmail?: string;
 
-  @ApiPropertyOptional({ example: '+1234567890', description: 'Client phone number' })
+  @ApiPropertyOptional({
+    example: '+1234567890',
+    description: 'Client phone number',
+  })
   @IsOptional()
   @IsString()
   clientPhone?: string;
 
-  @ApiPropertyOptional({ example: 'First consultation', description: 'Optional booking notes' })
+  @ApiPropertyOptional({
+    example: 'First consultation',
+    description: 'Optional booking notes',
+  })
   @IsOptional()
   @IsString()
   notes?: string;
 
-  @ApiPropertyOptional({ example: 5, description: 'ID of the time slot to book' })
+  @ApiPropertyOptional({
+    example: 5,
+    description: 'ID of the time slot to book',
+  })
   @IsOptional()
   @IsNumber()
   timeSlotId?: number;
 
-  @ApiPropertyOptional({ example: 2, description: 'ID of the specialization for this booking' })
+  @ApiPropertyOptional({
+    example: 2,
+    description: 'ID of the specialization for this booking',
+  })
   @IsOptional()
   @IsNumber()
   specializationId?: number;
+
+  @ApiPropertyOptional({
+    example: 1,
+    description: 'ID of the appointment type for this booking',
+  })
+  @IsOptional()
+  @IsNumber()
+  appointmentTypeId?: number;
+
+  @ApiPropertyOptional({
+    example: '456 Client St, Client City, State 54321',
+    description: 'Client address for home visits',
+  })
+  @IsOptional()
+  @IsString()
+  clientAddress?: string;
 }
 
 export class UpdateBookingStatusDto {
-  @ApiProperty({ 
-    example: 'confirmed', 
+  @ApiProperty({
+    example: 'confirmed',
     description: 'Booking status',
-    enum: ['pending', 'confirmed', 'cancelled', 'completed']
+    enum: ['pending', 'confirmed', 'cancelled', 'completed'],
   })
   @IsIn(['pending', 'confirmed', 'cancelled', 'completed'])
   status: string;
