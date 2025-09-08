@@ -9,6 +9,7 @@ import { SpecializationModule } from '@/modules/specialization.module';
 import { TimeSlotModule } from '@/modules/timeslot.module';
 import { BookingModule } from '@/modules/booking.module';
 import { AppointmentTypeModule } from './modules/appointment-type.module';
+import { AnalyticsModule } from './modules/analytics.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AppointmentTypeModule } from './modules/appointment-type.module';
     TimeSlotModule,
     BookingModule,
     AppointmentTypeModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
