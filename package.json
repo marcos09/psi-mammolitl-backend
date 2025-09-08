@@ -21,7 +21,11 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate -d ormconfig.ts",
     "migration:run": "npm run typeorm -- migration:run -d ormconfig.ts",
-    "migration:revert": "npm run typeorm -- migration:revert -d ormconfig.ts"
+    "migration:revert": "npm run typeorm -- migration:revert -d ormconfig.ts",
+    "migration:show": "npm run typeorm -- migration:show -d ormconfig.ts",
+    "db:setup": "node setup-database.js",
+    "db:test": "node test-migrations.js",
+    "db:migrate": "node run-migrations.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
