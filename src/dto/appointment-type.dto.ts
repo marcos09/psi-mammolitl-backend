@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsBoolean, IsIn } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, IsIn, IsNotEmpty } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { AppointmentTypeEnum } from '@/entities/appointment-type.entity';
 
@@ -8,6 +8,7 @@ export class CreateAppointmentTypeDto {
     description: 'Name of the appointment type',
   })
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty({
@@ -43,6 +44,7 @@ export class UpdateAppointmentTypeDto {
   })
   @IsOptional()
   @IsString()
+  @IsNotEmpty()
   name?: string;
 
   @ApiPropertyOptional({

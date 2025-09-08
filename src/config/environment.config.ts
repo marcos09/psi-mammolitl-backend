@@ -6,8 +6,8 @@ export const environmentConfig = {
     password: process.env.DB_PASSWORD || 'password',
     database: process.env.DB_NAME || 'psi_mammoliti_new',
     synchronize: false, // Disable automatic synchronization - use migrations only
-    logging: process.env.DB_LOGGING === 'true' || true,
-    ssl: process.env.DB_SSL === 'true' || false,
+    logging: process.env.DB_LOGGING === 'true' || process.env.DB_LOGGING === undefined,
+    ssl: process.env.DB_SSL === 'true',
   },
   application: {
     port: parseInt(process.env.PORT || '3000', 10),
@@ -24,8 +24,8 @@ export const getEnvironmentConfig = () => ({
     password: process.env.DB_PASSWORD || 'password',
     database: process.env.DB_NAME || 'psi_mammoliti_new',
     synchronize: false, // Disable automatic synchronization - use migrations only
-    logging: process.env.DB_LOGGING === 'true' || true,
-    ssl: process.env.DB_SSL === 'true' || false,
+    logging: process.env.DB_LOGGING === 'true' || process.env.DB_LOGGING === undefined,
+    ssl: process.env.DB_SSL === 'true',
   },
   application: {
     port: parseInt(process.env.PORT || '3000', 10),
